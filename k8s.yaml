@@ -1,0 +1,63 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: gitlab-managed-apps
+  name: ${APP_NAME}
+spec:
+  selector:
+    app: ${APP_NAME}
+  type: LoadBalancer
+  ports:
+     - protocol: TCP
+       port: 80
+       targetPort: 80
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: gitlab-managed-apps
+  name: ${APP_NAME}
+  labels:
+    app: ${APP_NAME}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+    spec:
+      imagePullSecrets:
+        - name: gitlab-auth
+      containers:
+        - name: ${APP_NAME}
+          image: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+          ports:
+            - containerPort: 80
+---
+apiVersion:  extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ${APP_NAME}
+  namespace: gitlab-managed-apps 
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+
+
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /${TYPE}/Chaufferie/*
+        backend:
+          serviceName: ${APP_NAME}
+          servicePort: 80
+
