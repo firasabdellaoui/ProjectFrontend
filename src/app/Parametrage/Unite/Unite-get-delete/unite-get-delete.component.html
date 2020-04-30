@@ -1,0 +1,62 @@
+<!-- Content Header (Page header) -->
+
+<small>
+  <!-- Main content -->
+  <div class="form-group ml-auto mr-auto col-md-4">
+    <input type="text" class="form-control" placeholder="Recherche" [(ngModel)]="term">
+  </div>
+  <div class="card shadow m-auto">
+    <div class="card-header">
+      <h2 class="card-title text-bold">Liste des unités</h2> <i class="far fa-file-alt ml-3 fa-lg mt-1 text-info"></i>
+    </div>
+
+    <div class="card-body">
+
+      <button type="button" class="btn  mb-2 text-white" (click)="openComponentForPost()"
+        style="background-color:rgb(13, 184, 214); "> <i class="fas fa-plus-circle "></i> Ajouter</button>
+
+      <table class="table table-bordered  table-hover text-center  ">
+        <thead>
+          <tr>
+            <th class="align-middle table-info table-border">Unité</th>
+            <th class="align-middle table-info table-border w-25">Actions</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+                let g of uniteService.ListUnite | filter:term | paginate
+                : {
+                    id: 'Pagination1',
+                    itemsPerPage: 5,
+                    currentPage: p
+                  }" class="sizeText">
+            <td class="align-middle table-border">{{g.libelle}}
+            </td>
+            <td class="align-middle table-border">
+              <div class="row">
+                <div class="m-auto">
+                  <button (click)="openComponentForUpdate(g)" class="btn-sm btn-info rounded "> <span
+                      class="fas fa-wrench  text-white"></span></button>
+                </div>
+                <div class=" m-auto">
+                  <button (click)="OnDelete(g.uniteId)" class="btn-sm btn-danger rounded "><span
+                      class="fas fa-trash-alt  text-white"></span> </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <pagination-controls id="Pagination1" class="my-pagination" (pageChange)="p = $event" previousLabel="Prec "
+      nextLabel="Suiv ">
+    </pagination-controls>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+
+</small>

@@ -1,0 +1,91 @@
+<div class="modal-header ">
+    <h3 *ngIf=" chaudiereService.AddOrUpdateForm.controls.chaudiereId.value =='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Ajout chaudière</h3>
+    <h3 *ngIf=" chaudiereService.AddOrUpdateForm.controls.chaudiereId.value !='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Modification chaudière</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+
+        <form [formGroup]="chaudiereService.AddOrUpdateForm">
+            <div class="row">
+
+
+                <div class="col col-md-6">
+
+
+                    <div class="form-group">
+                        <label>Numéro :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-signature text-info"></i></span>
+                            </div>
+
+                            <input type="number" class="form-control" formControlName="numero" placeholder="Numéro">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group ">
+                        <label>Type chaudière :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-list-alt text-info"></i></span>
+                            </div>
+                            <select class="form-control " formControlName="typeChaudiereId">
+                                <option value="" selected>
+                                </option>
+                                <option *ngFor=" let d of typeChaudiereService.ListTypeChaudiere"
+                                    [value]="d.typeChaudiereId">
+                                    {{d.libelle}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-md-6">
+                    <div class="form-group ">
+                        <label>Filiale :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-building text-info"></i></span>
+                            </div>
+                            <select class="form-control " formControlName="subsidiaryId">
+                                <option value="" selected>
+                                </option>
+                                <option *ngFor=" let d of chaudiereService.FilialeListParam" [value]="d.subsidiaryId">
+                                    {{d.label}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group ">
+                        <label>Type :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-th-list text-info"></i></span>
+                            </div>
+                            <select class="form-control " formControlName="type">
+                                <option value="" selected>
+                                </option>
+                                <option value="0">Principale</option>
+                                <option value="1">Secours</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class=" btn btn-info col-2 mr-2 " (click)="onSubmit()"><i class="fas fa-check"></i>
+        Valider</button>
+</div>

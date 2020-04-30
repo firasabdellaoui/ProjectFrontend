@@ -1,0 +1,43 @@
+<div class="modal-header ">
+    <h3 *ngIf=" typeChaudiereService.AddOrUpdateForm.controls.typeChaudiereId.value =='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Ajout d'un type de chaudière</h3>
+    <h3 *ngIf=" typeChaudiereService.AddOrUpdateForm.controls.typeChaudiereId.value !='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Modification d'un type de chaudière</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+
+        <form [formGroup]="typeChaudiereService.AddOrUpdateForm">
+            <div class="row">
+
+
+                <div class="col col-md-6">
+
+                    <div class="form-group">
+                        <label>Type de chaudière :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-signature text-info"></i></span>
+                            </div>
+
+                            <input type="text" class="form-control" formControlName="libelle" placeholder="Type de chaudière">
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class=" btn btn-info col-2 mr-2 " (click)="onSubmit()"><i class="fas fa-check"></i>
+    Valider</button>
+</div>

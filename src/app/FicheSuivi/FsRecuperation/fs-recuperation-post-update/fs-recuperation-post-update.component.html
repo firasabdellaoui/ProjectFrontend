@@ -1,0 +1,298 @@
+<div class="modal-header ">
+  <h3
+    *ngIf=" fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ficheSuiviId.value =='00000000-0000-0000-0000-000000000000'"
+    class="modal-title pull-left text-info ml-3 mt-2">Ajout de fiche de suivi journalier</h3>
+  <h3
+    *ngIf=" fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ficheSuiviId.value !='00000000-0000-0000-0000-000000000000'"
+    class="modal-title pull-left text-info ml-3 mt-2">Modification de fiche de suivi journalier</h3>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body CustomFicheSuivi">
+  <div class="container">
+
+    <form [formGroup]="fsRecuperationService.AddOrUpdateFsRecuperationForm">
+      <div class="row">
+        <div class="col">
+
+          <div class="form-group">
+            <label for="">Chaudiére en marche</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-chevron-circle-down text-info"></i></span>
+              </div>
+            
+            <select class="form-control " formControlName="fkChaudiere" [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.fkChaudiere.errors?.required &&
+            fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.fkChaudiere.touched ">
+              <option value="" disabled selected>Sélectionnez chaudiére 
+              <option *ngFor=" let Ch of ListChaudiere" [value]="Ch.chaudiereId">{{Ch.marqueCorpsDeChauffe}} {{Ch.numero}}</option>
+            </select>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label>Date de saisie :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-calendar-alt text-info"></i></span>
+              </div>
+              <input type="date" class="form-control"
+                [value]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.dateSaisie.value | date: 'yyyy-MM-dd' "
+                formControlName="dateSaisie" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy"
+                data-mask="" im-insert="false" [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.dateSaisie.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.dateSaisie.touched ">
+            </div>
+          </div>
+     
+          <div class="form-group ">
+            <div class="custom-control custom-checkbox" tooltip="Désactivez cette case en cas d'abscence du compteur" >
+              <input type="checkbox" [checked]="IndexProductionChecked" class="custom-control-input" id="customCheck1" (change)="OnCheckIndexProduction($event.target.checked)">
+              <label class="custom-control-label" for="customCheck1">Index de production :</label>
+            </div>
+            <div class="input-group mt-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-sort-numeric-down text-info"></i></span>
+              </div>
+              <input [attr.disabled]="IndexProductionChecked == false ? true : null" type="number" class="form-control" formControlName="indexVapeur" placeholder="Index vapeur"
+                [class.is-invalid]=" fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexVapeur.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexVapeur.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexVapeur.errors?.min">
+                <div class="input-group-append" tooltip="Cochez cette case si le compteur est remis à 0" placement="bottom">
+                  <span class="input-group-text text-warning">
+                    <input  type="checkbox" (change)="OnchangeCompteurProduction($event.target.checked)">
+                  </span>
+                </div>
+              </div>
+            
+          </div>
+          <div class="form-group ">
+            <div class="custom-control custom-checkbox" tooltip="Désactivez cette case en cas d'abscence du compteur" >
+              <input type="checkbox" [checked]="IndexEauChecked" class="custom-control-input" id="customCheck2" (change)="OnCheckIndexEau($event.target.checked)">
+              <label class="custom-control-label" for="customCheck2">Index eau :</label>
+            </div>
+            <div class="input-group mt-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-sort-numeric-down text-info"></i></span>
+              </div>
+              <input [attr.disabled]="IndexEauChecked == false ? true : null" type="number" class="form-control" formControlName="indexEauAdoucie" placeholder="Index eau"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexEauAdoucie.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexEauAdoucie.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexEauAdoucie.errors?.min">
+            <div class="input-group-append" tooltip="Cochez cette case si le compteur est remis à 0" placement="bottom">
+              <span class="input-group-text text-warning">
+                <input  type="checkbox" (change)="OnchangeCompteurEau($event.target.checked)">
+              </span>
+            </div>
+          </div>
+          </div>
+          <div class="form-group ">
+            <label>Température de fumée : </label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-temperature-high text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="temperatureFumee"
+                placeholder="Température de fumée" [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.temperatureFumee.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.temperatureFumee.touched">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>TH (chaudière) :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="tH_Eau_Chaudiere" placeholder="TH"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_Chaudiere.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_Chaudiere.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_Chaudiere.errors?.min">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>PH (chaudière) :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="pH_Eau_Chaudiere" placeholder="PH"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Chaudiere.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Chaudiere.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Chaudiere.errors?.min 
+              ||fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Chaudiere.errors?.max">
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <label>Conductivité (chaudière) :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-lightbulb text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="conductivite_Eau_Chaudiere"
+                placeholder="Conductivité"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Chaudiere.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Chaudiere.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Chaudiere.errors?.min">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>T. (bâche alimentaire) : </label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-temperature-high text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="temperatureBacheAlimentaire"
+                placeholder="Température de fumée" [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.temperatureBacheAlimentaire.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.temperatureBacheAlimentaire.touched">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>TH (bâche alimentaire) :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="tH_Eau_BacheAlimentaire" placeholder="TH"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_BacheAlimentaire.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_BacheAlimentaire.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_BacheAlimentaire.errors?.min">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>PH (bâche alimentaire) :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="pH_Eau_BacheAlimentaire" placeholder="PH"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_BacheAlimentaire.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_BacheAlimentaire.touched 
+              || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_BacheAlimentaire.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_BacheAlimentaire.errors?.max">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>Con. (bâche alimentaire) :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-lightbulb text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="conductivite_Eau_BacheAlimentaire"
+                placeholder="Conductivité"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_BacheAlimentaire.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_BacheAlimentaire.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_BacheAlimentaire.errors?.min">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>TH entrée (eau adoucie):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="tHe_Eau_Adoucie" placeholder="TH entrée"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHe_Eau_Adoucie.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHe_Eau_Adoucie.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHe_Eau_Adoucie.errors?.min">
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <label>TH sortie (eau adoucie):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="tHs_Eau_Adoucie" placeholder="TH sortie"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHs_Eau_Adoucie.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHs_Eau_Adoucie.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHs_Eau_Adoucie.errors?.min">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>PH (eau adoucie):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="pH_Eau_Adoucie" placeholder="PH"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Adoucie.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Adoucie.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Adoucie.errors?.min 
+                || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Adoucie.errors?.max  ">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>Conductivité (eau adoucie):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-lightbulb text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="conductivite_Eau_Adoucie"
+                placeholder="Conductivité"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Adoucie.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Adoucie.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Adoucie.errors?.min">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>PH (E. retour condensat):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="ph_RetourCondensat" placeholder="PH"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ph_RetourCondensat.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ph_RetourCondensat.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ph_RetourCondensat.errors?.min || 
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ph_RetourCondensat.errors?.max">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>Con. (E. retour condensat):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-lightbulb text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="conductivite_RetourCondensat"
+                placeholder="Conductivité"
+                [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_RetourCondensat.errors?.required &&
+              fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_RetourCondensat.touched || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_RetourCondensat.errors?.min">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Commentaire :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-comment-alt text-info"></i></span>
+              </div>
+              <textarea rows="1" type="text" class="form-control" formControlName="commentaire"
+                placeholder="commentaire" [class.is-invalid]="fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.commentaire.errors?.required &&
+                fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.commentaire.touched"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <i class="text-success"> NB: - Cochez les cases des champs index si le compteur est remis à 0 <br>
+      &nbsp; &nbsp; &nbsp;   - Désactivez les champs index en cas d'abscence du compteur</i>
+  </div>
+</div>
+<div class="modal-footer">
+  <p class="mr-auto ml-3" style="color:red" *ngIf="
+  fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Chaudiere.errors?.max ||  fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_BacheAlimentaire.errors?.max ||
+  fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Adoucie.errors?.max || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ph_RetourCondensat.errors?.max
+  
+  ">
+    PH ne dépasse pas 14
+  </p>
+  <p class="mr-auto ml-3" style="color:red" *ngIf="
+ fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexVapeur.errors?.min ||
+fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.indexEauAdoucie.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_Chaudiere.errors?.min ||
+fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Chaudiere.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tH_Eau_BacheAlimentaire.errors?.min ||
+fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_BacheAlimentaire.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHe_Eau_Adoucie.errors?.min ||
+fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.tHs_Eau_Adoucie.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_Eau_Adoucie.errors?.min ||
+fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.conductivite_RetourCondensat.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Chaudiere.errors?.min ||  fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_BacheAlimentaire.errors?.min ||
+fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.pH_Eau_Adoucie.errors?.min || fsRecuperationService.AddOrUpdateFsRecuperationForm.controls.ph_RetourCondensat.errors?.min
+">
+    Champs n'accepte pas une valeur négative
+  </p>
+  <button type="button" class=" btn btn-info col-2 mr-2 " (click)="onSubmit()"
+    [disabled]="fsRecuperationService.AddOrUpdateFsRecuperationForm.invalid"><i class="fas fa-check"></i>
+    Valider</button>
+</div>

@@ -1,0 +1,282 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 10vw;
+}
+
+.red-snackbar {
+    background-color: #f54e4e;
+    color: white;
+    z-index: 1000000;
+    align-items: center;
+    font-size: large;
+}
+
+.green-snackbar {
+    background-color: darkgreen;
+    color: white;
+    z-index: 1000000;
+    align-items: center;
+    font-size: large;
+}
+
+.red-snackbar .mat-simple-snackbar-action {
+    color: white;
+}
+
+.green-snackbar .mat-simple-snackbar-action {
+    color: #e5e5e5;
+}
+
+.sizeText {
+    font-size: 16px;
+}
+
+.my-pagination .ngx-pagination .current {
+    background: rgb(13, 184, 214);
+}
+
+.table-border {
+    border-color: darkgrey !important;
+}
+
+#dropdowntoggle {
+    background-color: rgb(13, 184, 214);
+}
+
+#dropdowntoggle:hover {
+    background-color: rgb(25, 100, 187);
+}
+
+#item1:hover,
+#item2:hover,
+#item3:hover,
+#item4:hover,
+#item5:hover {
+    cursor: pointer;
+    background-color: #0099ff;
+    color: white;
+}
+
+#online-circle {
+    color: greenyellow;
+    font-size: 10px;
+}
+
+#user-online {
+    color: grey;
+    font-size: 10px;
+}
+
+.user-img {
+    border-radius: 8px;
+    float: left;
+    margin-left: 16px;
+}
+
+.sidebar-collapse .user-img {
+    width: 30px;
+}
+
+.sidebar-collapse .poulina-img {
+    width: 30px;
+    margin-left: 10px;
+}
+
+.nav-item .nav-link:hover .bounce {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce ease-in-out 0.5s 1 alternate;
+    ;
+    -o-animation: bounce ease-in-out 0.5s 1 alternate;
+    ;
+    -webkit-animation: bounce ease-in-out 0.5s 1 alternate;
+    ;
+    animation: bounce ease-in-out 0.5s 1 alternate;
+    ;
+    color: #6699f6;
+}
+
+@-webkit-keyframes bounce {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(10deg);
+    }
+    30% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    70% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-moz-keyframes bounce {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(10deg);
+    }
+    30% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    70% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-o-keyframes bounce {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(10deg);
+    }
+    30% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    70% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-ms-keyframes bounce {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(10deg);
+    }
+    30% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    70% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(10deg);
+    }
+    30% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    70% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.btn-circle,
+.btn-circle-3d {
+    border-radius: 50% !important;
+}
+
+.btn-danger.btn-circle {
+    -webkit-box-shadow: 0px 0px 3px 1px #b92c28;
+    -moz-box-shadow: 0px 0px 3px 1px #b92c28;
+    box-shadow: 0px 0px 3px 1px #b92c28;
+}
+
+.table-border {
+    border-color: rgba(71, 78, 90, 0.164) !important;
+}
+
+
+.modal-body.CustomFicheSuivi{
+    height: 400px;
+    overflow: auto;
+}
+
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 10000;
+}
+

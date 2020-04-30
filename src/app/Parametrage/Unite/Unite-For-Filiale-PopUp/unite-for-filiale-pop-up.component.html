@@ -1,0 +1,46 @@
+<div class="modal-header ">
+    <h3 class="modal-title pull-left text-info ml-3 mt-2">Sélectionnez une unité</h3>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+
+        <form [formGroup]="filialeService.AddOrUpdateForm">
+            <div class="row">
+
+
+                <div class="col col-md-6">
+                    <div class="form-group ">
+                        <label>Unité :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-building text-info"></i></span>
+                            </div>
+                            <select class="form-control " formControlName="uniteId">
+                <option value="" selected>
+                </option>
+                <option *ngFor=" let d of uniteService.ListUnite" [value]="d.uniteId">
+                  {{d.libelle}}
+                </option>
+              </select>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class=" btn btn-info col-2 mr-2 " (click)="onSubmit()"><i class="fas fa-check"></i>
+    Valider</button>
+</div>

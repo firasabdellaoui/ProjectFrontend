@@ -1,0 +1,113 @@
+<div class="modal-header ">
+    <h3 *ngIf=" bacheAlimentaireService.AddOrUpdateForm.controls.composantId.value =='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">
+        Ajout d'une bâche alimentaire</h3>
+
+
+    <h3 *ngIf=" bacheAlimentaireService.AddOrUpdateForm.controls.composantId.value !='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">
+        Modification d'une bâche alimentaire</h3>
+    <h6> <span class="badge badge-light">
+            {{chaudiere?.libelleChaudiere}}
+        </span></h6>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+
+        <form [formGroup]="bacheAlimentaireService.AddOrUpdateForm">
+            <div class="row">
+
+
+                <div class="col col-md-6">
+
+
+
+                    <div class="form-group ">
+                        <label>Type :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-th-list text-info"></i></span>
+                            </div>
+                            <select class="form-control " formControlName="type">
+                                <option value="" selected>
+                                </option>
+                                <option value="0">Dégazant</option>
+                                <option value="1">Atmosphérique</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date d'acquisition :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-bolt text-info"></i></span>
+                            </div>
+
+                            <input type="date" class="form-control" [value]="bacheAlimentaireService.AddOrUpdateForm.get('dateAcquisition').value | date:'yyyy-MM-dd'" formControlName="dateAcquisition" placeholder="Date d'acquisition">
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Prix d'acquisition :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt text-info"></i></span>
+                            </div>
+                            <input type="number" class="form-control" formControlName="prixAcquisition" placeholder="Prix d'acquisition">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col col-md-6">
+
+                    <div class="form-group">
+                        <label>Volume :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt text-info"></i></span>
+                            </div>
+
+                            <input type="number" class="form-control" formControlName="volume" placeholder="Volume">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>Etat :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-th-list text-info"></i></span>
+                            </div>
+                            <select class="form-control " formControlName="etat">
+                                <option value="" selected>
+                                </option>
+                                <option value="0">Marche</option>
+                                <option value="1">Arrêt de production</option>
+                                <option value="2">Panne</option>
+                                <option value="3">Réservé</option>
+                                <option value="4">Réforme</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class=" btn btn-info col-2 mr-2 " (click)="onSubmit()"><i class="fas fa-check"></i>
+        Valider</button>
+</div>

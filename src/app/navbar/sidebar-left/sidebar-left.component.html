@@ -1,0 +1,98 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="" class="brand-link text-center">
+        <img src="/assets/Image/LogoPoulina.png" class="mr-3 poulina-img" style="width: 70%; border-radius: 20px;">
+
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+            <div class="">
+                <img src="/assets/Image/user.png" class=" mr-4 user-img" alt="User Image">
+                <span>
+                    <div class="">
+                        <a class="d-block">Wael Hosni</a>
+                        <span id="user-online">
+                            <i id="online-circle" class="fa fa-circle mr-1"></i>
+                            <span>Online</span>
+                </span>
+            </div>
+
+            </span>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+            <li class="nav-item">
+                <a routerLink="/Chaudière" class="nav-link">
+                    <i class="nav-icon fas fa-th bounce"></i>
+                    <p>
+                        Chaudière
+                        <span class="right badge badge-danger ">5</span>
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-clipboard bounce"></i>
+                    <p>
+                        Fiche de Suivi
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a routerLink="/FsEauChaude" class="nav-link">
+                            <i class="far fa-circle nav-icon text-danger"></i>
+                            <p>Eau Chaude</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/FsHuileThermique" class="nav-link">
+                            <i class="far fa-circle nav-icon text-info"></i>
+                            <p>Huile Thermique</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/FsVapeur" class="nav-link">
+                            <i class="far fa-circle nav-icon text-warning"></i>
+                            <p>Vapeur</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/FsRecuperation" class="nav-link">
+                            <i class="far fa-circle nav-icon text-success"></i>
+                            <p>Récupération</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
+
+
+            <li class="nav-item">
+                <a routerLink="/Parametrage" class="nav-link">
+                    <i class="nav-icon fas fa-cogs bounce"></i>
+                    <p>
+                        Paramètrage
+                    </p>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

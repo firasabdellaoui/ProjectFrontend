@@ -1,0 +1,65 @@
+<!-- Content Header (Page header) -->
+
+<small>
+  <!-- Main content -->
+  <div class="form-group ml-auto mr-auto col-md-4">
+    <input type="text" class="form-control" placeholder="Recherche" [(ngModel)]="term">
+  </div>
+  <div class="card shadow m-5 mt-auto">
+
+    <div class="card-header">
+      <h2 class="card-title text-bold">Liste des filiales</h2> <i class="far fa-file-alt ml-3 fa-lg mt-1 text-info"></i>
+    </div>
+
+
+    <div class="card-body">
+      <table class="table table-bordered  table-hover text-center table-striped">
+        <thead>
+          <tr>
+            <th class="align-middle table-info table-border ">Filiale</th>
+            <th class="align-middle table-info table-border ">Code</th>
+            <th class="align-middle table-info table-border ">Actions</th>
+            <th class="align-middle table-info table-border "></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+                let g of filialeService.FilialeListFromMSFiliale | filter:term | paginate
+                : {
+                    id: 'Pagination',
+                    itemsPerPage: 20,
+                    currentPage: p
+                  } " class="sizeText ">
+            <td class="align-middle table-border ">{{g.label}}
+            </td>
+            <td class="align-middle table-border ">{{g.subsidiaryCode}}</td>
+            <td class="align-middle table-border ">
+
+              <div class="custom-control custom-checkbox " style="margin-left: 26px;">
+                <input type="checkbox" class="custom-control-input" [attr.id]="g.subsidiaryId"
+                  (change)='CheckFiliale(g)' [checked]="(existFiliale(g))">
+                <label class="custom-control-label" [attr.for]="g.subsidiaryId"></label>
+              </div>
+
+            </td>
+            <td class="align-middle table-border">
+              <button (click)="openComponentForUpdate(g)" class="btn-xs btn-info rounded " data-toggle="tooltip"
+                data-placement="right" title="Sélection d'unité" [hidden]="(!existFiliale(g))"> <span
+                  class="fas fa-plus-square  text-white"></span></button>
+
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <pagination-controls id="Pagination" class="my-pagination" (pageChange)="p = $event" previousLabel="Prec "
+      nextLabel="Suiv ">
+    </pagination-controls>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+
+</small>

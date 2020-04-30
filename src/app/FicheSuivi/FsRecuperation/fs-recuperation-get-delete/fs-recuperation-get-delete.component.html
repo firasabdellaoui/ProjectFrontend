@@ -1,0 +1,214 @@
+<div class="content-wrapper" style="min-height: 1200.88px;">
+  <!-- Content Header (Page header) -->
+  <section class="content-header ">
+    <div class="container-fluid ">
+      <div class=" mb-2  ">
+        <div class="card " style="background-color:rgb(13, 184, 214); height: 55px;">
+          <div class="card-header">
+            <small>
+
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <small>
+    <!-- Main content -->
+    <section class="content">
+      <h6 class="text-secondary ml-5"><i class="far fa-clipboard text-dark text-lg"></i> Fiche de suivi journalier :
+                <strong class="text-dark">Chaudiére de récupération</strong></h6>
+      <div class="card">
+       
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4 ">
+              <button type="button" class="btn  mb-2 text-white" (click)="openComponentForPost()"
+                style="background-color:rgb(13, 184, 214); "> <i class="fas fa-plus-circle "></i> Ajouter</button>
+            </div>
+            <div class="col-4">
+              <form [formGroup]="fsRecuperationService.DateForm">
+                <div class="input-group">
+                  <div>
+                    <i class="far fa-calendar-alt text-info  mt-3 mr-2 text-lg"></i>
+                  </div>
+                  <mat-form-field>
+                    <input formControlName="dateSaisie" type="month" matInput style="font-size: 16px;" class="text-center"
+                      [value]="fsRecuperationService.DateForm.controls.dateSaisie.value" (change)="GetListFsRecuperationByDate()" />
+                  </mat-form-field>
+                </div>
+                <!-- <div class="form-group col-8 ">
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt text-info"></i></span>
+                    </div>
+                    <input type="month" class="form-control" (change)="GetListFsEauChaudeByDate()" formControlName="dateSaisie">
+                  </div>
+                </div> -->
+              </form>
+            </div>
+            <div class="col-4 ">
+              <form [formGroup]="SearchByFilialeForm">
+                <div class="input-group">
+                  <div>
+                    <i class="fas fa-list-ol text-info  mt-3 mr-2 text-lg"></i>
+                  </div>
+                  <mat-form-field>
+                    <mat-label>Filiale</mat-label>
+                    <input type="text"  matInput formControlName="filiale"   list="data.list"  >
+                    <datalist id="data.list">
+                      <select class="form-control" >
+                        <option
+                          *ngFor="let subsidiary of subsidiaryService.ListSubsidiaries"
+                         [value]="subsidiary.label" 
+                        >
+                        </option>
+                      </select>
+                    </datalist>
+                  </mat-form-field>
+                </div>
+                <!-- <div class="form-group col-8 " style="float:right;">
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-list-ol text-info"></i></span>
+                    </div>
+                    <input type="text" formControlName="filiale" class="form-control"  list="data.list" formControlName="dateSaisie">
+                    <datalist id="data.list">
+                      <select class="form-control" >
+                        <option
+                          *ngFor="let subsidiary of subsidiaryService.ListSubsidiaries"
+                         [value]="subsidiary.label" 
+                        >
+                        </option>
+                      </select>
+                    </datalist>
+                  </div>
+                </div> -->
+              </form>
+            </div>
+          </div>
+          <table class="table table-bordered table-responsive table-hover text-center">
+            <thead>
+              <tr>
+                <th class="align-middle table-secondary table-border" colspan="2"></th>
+                <th class="align-middle table-secondary table-border" colspan="1">Productions</th>
+                <th class="align-middle table-secondary table-border" colspan="1">Index de consommation (m3)</th>
+                <th class="align-middle table-secondary table-border" colspan="4">Qualité d'eau dans la chaudière</th>
+                <th class="align-middle table-secondary table-border" colspan="4">Qualité d'eau dans le bâche
+                  alimentaire</th>
+                <th class="align-middle table-secondary table-border" colspan="4">Qualité d'eau adoucie</th>
+                <th class="align-middle table-secondary table-border" colspan="2">Qualité d'eau retour condensat</th>
+                <th class="align-middle table-secondary table-border" colspan="2"></th>
+              </tr>
+              <tr>
+                <th class="align-middle table-info table-border">Date de saisie</th>
+                <th class="align-middle table-info table-border">Chaudière en marche</th>
+                <th class="align-middle table-info table-border">Index de production vapeur (T)</th>
+                <th class="align-middle table-info table-border">Index Eau</th>
+                <th class="align-middle table-info table-border">Température fumée (°C)</th>
+                <th class="align-middle table-info table-border">TH (°F)</th>
+                <th class="align-middle table-info table-border">PH</th>
+                <th class="align-middle table-info table-border">Conductivité (µs/cm)</th>
+                <th class="align-middle table-info table-border">Température bâche (°C)</th>
+                <th class="align-middle table-info table-border">TH (°F)</th>
+                <th class="align-middle table-info table-border">PH</th>
+                <th class="align-middle table-info table-border">Conductivité (µs/cm)</th>
+                <th class="align-middle table-info table-border">TH entrée</th>
+                <th class="align-middle table-info table-border">TH sortie</th>
+                <th class="align-middle table-info table-border">PH</th>
+                <th class="align-middle table-info table-border">Conductivité (µs/cm)</th>
+                <th class="align-middle table-info table-border">PH</th>
+                <th class="align-middle table-info table-border">Conductivité (µs/cm)</th>
+                <th class="align-middle table-info table-border">Commenatire</th>
+                <th class="align-middle table-info table-border">Action(s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="
+                let g of fsRecuperationService.ListFsRecuperation | filterFS : SearchByFilialeForm.value | paginate
+                : {
+                    id: 'FsRecuperationPagination',
+                    itemsPerPage: 5,
+                    currentPage: p
+                  }" class="sizeText">
+                <td class="align-middle table-border">{{g.dateSaisie | date: "dd/MM/yyyy"}}</td>
+                <td class="align-middle table-border ">{{g.marqueCorpsDeChauffe}} {{g.numero}}</td>
+                <td class="align-middle table-border">
+                  <span class="text-danger" *ngIf="g.indexVapeur == null"><i class="text-bold" style="font-size: 13px;">Abscence débitmètre</i></span>
+                  <span *ngIf="g.indexVapeur != null">{{g.indexVapeur}}</span>
+                </td>
+                <td class="align-middle table-border">
+                  <span class="text-danger" *ngIf="g.indexEauAdoucie == null"><i class="text-bold" style="font-size: 13px;">Abscence compteur</i> </span>
+                  <span *ngIf="g.indexEauAdoucie != null">{{g.indexEauAdoucie}}</span>
+                </td>
+                <td class="align-middle table-border">{{g.temperatureFumee}}</td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.tH_Eau_Chaudiere >= 0.5  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.tH_Eau_Chaudiere}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" (g.pH_Eau_Chaudiere >= 12 ||  g.pH_Eau_Chaudiere <= 10.5) ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.pH_Eau_Chaudiere}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.conductivite_Eau_Chaudiere >= 8000  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.conductivite_Eau_Chaudiere}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;" *ngIf="g.type==1">
+                  <span
+                    [className]=" g.temperatureBacheAlimentaire > 105 || g.temperatureBacheAlimentaire < 95  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.temperatureBacheAlimentaire}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;" *ngIf="g.type==2">
+                  <span
+                    [className]=" g.temperatureBacheAlimentaire > 85 || g.temperatureBacheAlimentaire < 70  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.temperatureBacheAlimentaire}}</span>
+                </td>
+                <td class="align-middle table-border"  *ngIf="g.type==0"> {{g.temperatureBacheAlimentaire}} </td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.tH_Eau_BacheAlimentaire >= 0.5  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.tH_Eau_BacheAlimentaire}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" (g.pH_Eau_BacheAlimentaire >= 12 ||  g.pH_Eau_BacheAlimentaire <= 10.5) ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.pH_Eau_BacheAlimentaire}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.conductivite_Eau_BacheAlimentaire >= 8000  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.conductivite_Eau_BacheAlimentaire}}</span>
+                </td>
+                <td class="align-middle table-border">{{g.tHe_Eau_Adoucie}}</td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.tHs_Eau_Adoucie > 0.5  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.tHs_Eau_Adoucie}}</span>
+                </td>
+                <td class="align-middle table-border">{{g.pH_Eau_Adoucie}}</td>
+                <td class="align-middle table-border">{{g.conductivite_Eau_Adoucie}}</td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.ph_RetourCondensat <= 8  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.ph_RetourCondensat}}</span>
+                </td>
+                <td class="align-middle table-border" style="font-size: 18px;"><span
+                    [className]=" g.conductivite_RetourCondensat >= 300  ? 'badge badge-pill badge-danger'  : 'badge badge-pill badge-success'">{{g.conductivite_RetourCondensat}}</span>
+                </td>
+                <td class="align-middle table-border">{{g.commentaire}}</td>
+                <td class="align-middle  table-border">
+                  <div class="row ">
+                    <div class="col-6">
+                      <button (click)="openComponentForUpdate(g)" class="btn-sm btn-info rounded mr-5 rounded"> <span
+                          class="fas fa-wrench  text-white"></span></button>
+                    </div>
+                    <div class="col-6">
+                      <button (click)="OnDelete(g.ficheSuiviId)" class="btn-sm btn-danger rounded"><span
+                          class="fas fa-trash-alt  text-white"></span> </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls id="FsRecuperationPagination" class="my-pagination" (pageChange)="p = $event"
+          previousLabel="Prec " nextLabel="Suiv ">
+        </pagination-controls>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </section>
+  </small>
+
+</div>

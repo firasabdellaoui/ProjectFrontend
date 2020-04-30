@@ -1,0 +1,268 @@
+<style>
+.tooltip-inner {
+  background-color: #009688;
+  color: #fff;
+  }
+  .tooltip.top .tooltip-arrow:before,
+  .tooltip.top .tooltip-arrow {
+        border-top-color: #009688;
+      }
+</style>
+<div class="modal-header ">
+  <h3 *ngIf=" fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ficheSuiviId.value =='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Ajout de fiche de suivi journalier</h3>
+  <h3 *ngIf=" fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ficheSuiviId.value !='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Modification de fiche de suivi journalier</h3>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body CustomFicheSuivi" >
+  <div class="container">
+
+    <form [formGroup]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm">
+      <div class="row">
+        <div class="col">
+
+          <div class="form-group">
+            <label for="">Chaudiére en marche</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-chevron-circle-down text-info"></i></span>
+              </div>
+            
+            <select class="form-control " formControlName="fkChaudiere" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.fkChaudiere.errors?.required && 
+            fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.fkChaudiere.touched">
+              <option value="" disabled selected>Sélectionnez chaudiére 
+              <option *ngFor=" let Ch of ListChaudiere" [value]="Ch.chaudiereId">{{Ch.marqueCorpsDeChauffe}} {{Ch.numero}}</option>
+            </select>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label>Date de saisie :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-calendar-alt text-info"></i></span>
+              </div>
+              <input type="date" class="form-control"
+                [value]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.dateSaisie.value | date: 'yyyy-MM-dd' "
+                formControlName="dateSaisie" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy"
+                data-mask="" im-insert="false" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.dateSaisie.errors?.required && 
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.dateSaisie.touched">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>Production filiale :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-sort-numeric-down text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="productionUsine"
+                placeholder="Production filiale" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.productionUsine.errors?.required  &&
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.productionUsine.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.productionUsine.errors?.min">
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="custom-control custom-checkbox"  tooltip="Désactivez cette case en cas d'abscence du compteur" >
+              <input type="checkbox"  [checked]="IndexCombustibleChecked" class="custom-control-input" id="customCheck4" (change)="OnCheckIndexCombustible($event.target.checked)">
+              <label   class="custom-control-label" for="customCheck4">Index combustible :</label>
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-sort-numeric-down text-info"></i>
+                </span>
+              </div>
+              <input [attr.disabled]="IndexCombustibleChecked == false ? true : null" type="number" class="form-control" formControlName="indexCombustible"
+                placeholder="Index" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.indexCombustible.errors?.required &&
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.indexCombustible.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.indexCombustible.errors?.min" >
+                <div class="input-group-append"  tooltip="Cochez cette case si le compteur est remis à 0" placement="bottom" >
+                  <span class="input-group-text text-warning">
+                    <input  type="checkbox" (change)="OnchangeCompteur($event.target.checked)">
+                  </span>
+                </div>
+              </div>
+            </div>
+              <div class="form-group ">
+                <label>Unité combustible :</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-chevron-circle-down text-info"></i></span>
+                  </div>
+                  <select type="number" class="form-control" formControlName="uniteCombustible"  [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.uniteCombustible.errors?.required &&
+                  fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.uniteCombustible.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.uniteCombustible.errors?.min">
+                  <option value="" disabled selected>Sélectionnez unité
+                  </option>
+                  <option *ngFor=" let d of ListUniteCombustible" [value]="d.value">{{d.text}}</option>
+                </select>
+                </div>
+              </div>
+         
+
+          <div class="form-group ">
+            <label>TH :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-sort-numeric-down text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="th" placeholder="TH" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.th.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.th.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.th.errors?.min">
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <label>PH :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-sort-numeric-down text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="ph" placeholder="PH" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ph.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ph.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ph.errors?.min
+              || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ph.errors?.max">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>Température de fumée : </label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-temperature-high text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="temperatureFumee"
+                placeholder="Température de fumée" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureFumee.errors?.required &&
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureFumee.touched">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label>T de consigne brûleur : </label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-temperature-high text-info "></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="temperatureConsigneBrulure"
+                placeholder="Température brûleur " [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureConsigneBrulure.errors?.required &&
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureConsigneBrulure.touched">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>Pression départ :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tachometer-alt text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="pressionDepart" placeholder="Pression départ" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionDepart.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionDepart.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionDepart.errors?.min">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>Pression retour :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tachometer-alt text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="pressionRetour" placeholder="Pression retour" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionRetour.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionRetour.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionRetour.errors?.min">
+            </div>
+          </div>
+         
+          <div class="form-group ">
+            <div class="custom-control custom-checkbox" >
+              <input type="checkbox"  class="custom-control-input" id="customCheck1" (change)="OnCheck($event.target.checked)">
+              <label class="custom-control-label" for="customCheck1">Différence de pression :</label>
+            </div>
+            <div class="input-group mt-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tachometer-alt text-info"></i></span>
+              </div>
+              <input [attr.disabled]="DifferenceChecked == false ? true : null" type="number" class="form-control" formControlName="differencePression" placeholder="ΔP" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionRetour.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.differencePression.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.differencePression.errors?.min">
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <label>Température de départ :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-temperature-high text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="temperatureDepart"
+                placeholder="Température de départ" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureDepart.errors?.required &&
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureDepart.touched ">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>Température de retour :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-temperature-high text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="temperatureRetour"
+                placeholder="Température de retour" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureRetour.errors?.required &&
+                fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.temperatureRetour.touched">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>TH_Eau brute :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="tH_EauBrute" placeholder="TH" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.tH_EauBrute.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.tH_EauBrute.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.tH_EauBrute.errors?.min">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label>PH_Eau brute :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tint text-info"></i></span>
+              </div>
+              <input type="number" class="form-control" formControlName="pH_EauBrute" placeholder="PH" [class.is-invalid]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pH_EauBrute.errors?.required &&
+              fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pH_EauBrute.touched || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pH_EauBrute.errors?.min 
+              || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pH_EauBrute.errors?.max">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Commentaire :</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-comment-alt text-info"></i></span>
+              </div>
+              <textarea rows="1" type="text" class="form-control" formControlName="commentaire"
+                placeholder="commentaire"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <i class="text-success"> NB: - Cochez la case du champs index si le compteur est remis à 0 <br>
+        &nbsp; &nbsp; &nbsp;   - Désactivez le champs index en cas d'abscence du compteur</i>
+     </form>
+
+  </div>
+</div>
+<div class="modal-footer ">
+  <p class="mr-auto ml-3"
+  style="color:red"
+  *ngIf="
+  fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pH_EauBrute.errors?.max ||  fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ph.errors?.max
+  "
+>
+  PH ne dépasse pas 14
+</p>
+
+<p class="mr-auto ml-3"
+style="color:red"
+*ngIf="
+fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.productionUsine.errors?.min || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.indexCombustible.errors?.min ||
+fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.th.errors?.min || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.ph.errors?.min ||
+fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionDepart.errors?.min || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pressionRetour.errors?.min ||
+fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.tH_EauBrute.errors?.min || fsEauChaudeService.AddOrUpdateFsEauChaudeForm.controls.pH_EauBrute.errors?.min
+"
+>
+Champs n'accepte pas une valeur négative
+</p>
+
+  <button type="button" class=" btn btn-info col-2 mr-2 " (click)="onSubmit()" [disabled]="fsEauChaudeService.AddOrUpdateFsEauChaudeForm.invalid"><i class="fas fa-check"></i>
+   Valider</button>
+</div>

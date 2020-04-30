@@ -1,0 +1,93 @@
+<!-- Content Header (Page header) -->
+
+<small>
+  <!-- Main content -->
+
+  <div class="card shadow">
+    <div class="card-header">
+      <h2 class="card-title text-bold">Liste des composants</h2> <i
+        class="far fa-file-alt ml-3 fa-lg mt-1 text-info"></i>
+    </div>
+
+    <div class="card-body">
+
+
+
+
+
+
+      <div class="btn-group">
+        <button type="button" class="btn  mb-2 text-white" style="background-color:rgb(13, 184, 214);"><i
+            class=" fas fa-plus-circle "></i> Ajouter</button>
+        <button type="button" id="dropdowntoggle" class="btn  mb-2 text-white dropdown-toggle dropdown-toggle-split"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" id="item1" (click)="openAdoucisseurComponentForPost()">Adoucisseur</a>
+          <a class="dropdown-item" id="item2" (click)="openBacheAlimentaireComponentForPost()">Bâche Alimentaire</a>
+          <a class="dropdown-item" id="item3" (click)="openBruleurComponentForPost()">Brûleur</a>
+          <a class="dropdown-item" id="item4" (click)="openCorpsDeChauffeComponentForPost()">Corps de Chauffe</a>
+          <a class="dropdown-item" id="item5" (click)="openPompeAlimentaireForPost()">Pompe Alimentaire</a>
+
+        </div>
+      </div>
+
+      <table class="table table-bordered  table-hover text-center  ">
+        <thead>
+          <tr>
+            <th class="align-middle table-info table-border">Composant</th>
+            <th class="align-middle table-info table-border">Etat</th>
+            <th class="align-middle table-info table-border ">Actions</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+                let g of composantService.ListComposantByChaudiereId | paginate
+                : {
+                    id: 'Pagination1',
+                    itemsPerPage: 5,
+                    currentPage: p
+                  }" class="sizeText">
+            <td class="align-middle table-border" *ngIf="g.composant=='PompeAlimentaire'">Pompe alimentaire</td>
+            <td class="align-middle table-border" *ngIf="g.composant=='BacheAlimentaire'">Bache alimentaire</td>
+            <td class="align-middle table-border" *ngIf="g.composant=='Bruleur'">Brûleur</td>
+            <td class="align-middle table-border" *ngIf="g.composant=='Adoucisseur'">Adoucisseur</td>
+            <td class="align-middle table-border" *ngIf="g.composant=='CorpsDeChauffe'">Corps de chauffe</td>
+            <td class=" align-middle table-border" *ngIf="g.etat==0"><span class="badge badge-success">Marche</span>
+            </td>
+            <td class="align-middle table-border" *ngIf="g.etat==1"><span class="badge badge-danger">Arrêt de
+                production</span></td>
+            <td class="align-middle table-border" *ngIf="g.etat==2"><span class="badge badge-warning">Panne</span></td>
+            <td class="align-middle table-border" *ngIf="g.etat==3"><span class="badge badge-primary">Réservé</span>
+            </td>
+            <td class="align-middle table-border" *ngIf="g.etat==4"><span class="badge badge-secondary">Réforme</span>
+            </td>
+            <td class="align-middle table-border">
+              <div class="row">
+                <div class=" m-auto ">
+                  <button (click)="openDetails(g)" class="btn-sm btn-info rounded "> <span>
+                      <i class="fas fa-eye"></i></span></button>
+                </div>
+                <div class=" ml-2">
+                  <button (click)="OnDelete(g.composantId)" class="btn-sm btn-danger rounded "><span
+                      class="fas fa-trash-alt  text-white"></span> </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <pagination-controls id="Pagination1" class="my-pagination" (pageChange)="p = $event" previousLabel="Prec "
+      nextLabel="Suiv ">
+    </pagination-controls>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+
+</small>
