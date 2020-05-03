@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: ${APP_NAME}
-  type: LoadBalancer
+  type: NodePort
   ports:
      - protocol: TCP
        port: 80
