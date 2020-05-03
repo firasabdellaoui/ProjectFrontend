@@ -50,7 +50,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { filterPipeFS } from './shared/filter.pipe';
 
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -110,7 +110,7 @@ import { filterPipeFS } from './shared/filter.pipe';
     Ng2SearchPipeModule,
     TooltipModule.forRoot()
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   entryComponents: [FsEauChudePostUpdateComponent,
 
