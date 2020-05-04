@@ -27,7 +27,7 @@
                 let g of filialeService.FilialeListFromMSFiliale | filter:term | paginate
                 : {
                     id: 'Pagination',
-                    itemsPerPage: 20,
+                    itemsPerPage: 10,
                     currentPage: p
                   } " class="sizeText ">
             <td class="align-middle table-border ">{{g.label}}
