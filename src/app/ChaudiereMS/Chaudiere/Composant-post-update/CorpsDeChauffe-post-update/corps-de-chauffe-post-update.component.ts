@@ -5,7 +5,7 @@ import { CorpsDeChauffeService } from 'src/app/shared/ChaudiereMS/Composant/Corp
 import { ComposantService } from 'src/app/shared/ChaudiereMS/Composant/composant.service';
 import { CorpsDeChauffe } from 'src/app/shared/ChaudiereMS/Composant/composant.model';
 import { ChaudiereService } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.service';
-import { Chaudiere } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
+import { Chaudiere, ChaudiereForGet } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
 
 @Component({
   selector: 'app-corps-de-chauffe-post-update',
@@ -42,6 +42,9 @@ export class CorpsDeChauffePostUpdateComponent implements OnInit {
         this.bsModalRef.hide();
 
         this.composantService.getComposants(this.corpsDeChauffeService.AddOrUpdateForm.controls.chaudiereId.value).then();
+        this.chaudiereService.getListChaudiereDto().subscribe(res => {
+          this.chaudiereService.ListChaudiereForGet = res as ChaudiereForGet[];
+        });
         this.snackBar.open('L\'ajout est effectué avec succées', 'X', {
           duration: 3000,
           verticalPosition: 'top',
@@ -69,6 +72,9 @@ export class CorpsDeChauffePostUpdateComponent implements OnInit {
       if (res as CorpsDeChauffe) {
         this.bsModalRef.hide();
         this.composantService.refreshListComposants(this.composantService.chaudiereId)
+        this.chaudiereService.getListChaudiereDto().subscribe(res => {
+          this.chaudiereService.ListChaudiereForGet = res as ChaudiereForGet[];
+        });
         this.snackBar.open('La modification est effectuée avec succées', 'X', {
           duration: 3000,
           verticalPosition: 'top',

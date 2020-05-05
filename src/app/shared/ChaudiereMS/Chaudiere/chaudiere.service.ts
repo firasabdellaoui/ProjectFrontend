@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Chaudiere, ChaudiereForGet } from './chaudiere.model';
 import { environment } from 'src/environments/environment';
 import { ComposantService } from '../Composant/composant.service';
@@ -15,13 +15,14 @@ export class ChaudiereService {
   chaudiere: Chaudiere;
   ListChaudiereForGet: ChaudiereForGet[];
   FilialeListParam: Filiale[];
+  NombreTotalChaudiere: number;
 
   AddOrUpdateForm = this.fb.group({
     chaudiereId: [''],
-    subsidiaryId: [''],
-    type: [''],
-    typeChaudiereId: [''],
-    numero: ['']
+    subsidiaryId: ['', [Validators.required]],
+    type: ['', [Validators.required]],
+    typeChaudiereId: ['', [Validators.required]],
+    numero: ['', [Validators.required, Validators.min(1)]]
 
   });
 
@@ -77,5 +78,7 @@ export class ChaudiereService {
   getFilialeLisParam() {
     return this.http.get(environment.ChaudiereMicroservice + '/Filiale');
   }
+
+
 
 }
