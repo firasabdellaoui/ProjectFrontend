@@ -23,7 +23,7 @@
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="sr-only">Toggle Dropdown</span>
         </button>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" [hidden]="!composantService.chaudiereId">
           <a class="dropdown-item" id="item1" (click)="openAdoucisseurComponentForPost()">Adoucisseur</a>
           <a class="dropdown-item" id="item2" (click)="openBacheAlimentaireComponentForPost()">Bâche Alimentaire</a>
           <a class="dropdown-item" id="item3" (click)="openBruleurComponentForPost()">Brûleur</a>
