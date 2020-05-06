@@ -23,12 +23,11 @@ export class FilialeGetDeleteComponent implements OnInit {
 
   bsModalRef: BsModalRef;
 
-
   ngOnInit() {
-    this.filialeService.getFilialeList().subscribe(res => {
-      this.filialeService.FilialeListFromMSFiliale = res as Filiale[];
-      this.filialeService.getFiliales().subscribe(res => {
-        this.filialeService.FilialeList = res as Filiale[];
+    this.filialeService.getFiliales().subscribe(res => {
+      this.filialeService.FilialeList = res as Filiale[];
+      this.filialeService.getFilialeList().subscribe(res => {
+        this.filialeService.FilialeListFromMSFiliale = res as Filiale[];
         this.uniteService.getList().subscribe(res => {
           this.uniteService.ListUnite = res as Unite[];
         })
@@ -128,6 +127,10 @@ export class FilialeGetDeleteComponent implements OnInit {
 
   existFiliale(filiale: Filiale) {
     return this.filialeService.FilialeList.some(el => el.subsidiaryId === filiale.subsidiaryId);
+  }
+  existUnite(filiale: Filiale) {
+    var subsidiaryUniteNotNUllList = this.filialeService.FilialeList.filter(x => x.uniteId);
+    return subsidiaryUniteNotNUllList.some(el => el.subsidiaryId === filiale.subsidiaryId);
   }
 
   openComponentForUpdate(filiale: Filiale) {
