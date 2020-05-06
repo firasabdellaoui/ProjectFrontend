@@ -30,7 +30,11 @@
                     itemsPerPage: 10,
                     currentPage: p
                   } " class="sizeText ">
-            <td class="align-middle table-border ">{{g.label}}
+            <td class="align-middle table-border ">
+              <span> <i class="fas fa-exclamation-triangle text-warning mr-2"
+                  [hidden]="(!existFiliale(g))||(existUnite(g))" tooltip="Veuillez sélectionner une unité"
+                  placement="top"></i>
+              </span>{{g.label}}
             </td>
             <td class="align-middle table-border ">{{g.subsidiaryCode}}</td>
             <td class="align-middle table-border ">
@@ -45,7 +49,7 @@
             <td class="align-middle table-border">
               <button (click)="openComponentForUpdate(g)" class="btn-xs btn-info rounded " tooltip="Sélection d'unité"
                 placement="right" [hidden]="(!existFiliale(g))"> <span
-                  class="fas fa-plus-square  text-white"></span></button>
+                  class="fas fa-plus-square  text-white float-left"></span></button>
 
             </td>
           </tr>

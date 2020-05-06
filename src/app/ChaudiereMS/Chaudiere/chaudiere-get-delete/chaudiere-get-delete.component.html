@@ -12,8 +12,33 @@
 
 
     <div class="card-body">
-      <button type="button" class="btn  mb-2 text-white" (click)="openComponentForPost()"
-        style="background-color:rgb(13, 184, 214); "> <i class="fas fa-plus-circle "></i> Ajouter</button>
+      <div class="row">
+        <div class="col-4">
+          <button type="button" class="btn  mb-2 text-white float-left" (click)="openComponentForPost()"
+            style="background-color:rgb(13, 184, 214); "> <i class="fas fa-plus-circle "></i> Ajouter</button>
+        </div>
+
+
+        <div class="col-4 ml-auto">
+          <form [formGroup]="SearchByFilialeForm">
+            <div class="input-group ">
+
+
+              <mat-form-field>
+                <mat-label>Filiale</mat-label>
+                <input type="text" matInput formControlName="filiale" list="data.list">
+                <datalist id="data.list">
+                  <select class="form-control">
+                    <option *ngFor="let subsidiary of chaudiereService.FilialeListParam" [value]="subsidiary.label">
+                    </option>
+                  </select>
+                </datalist>
+              </mat-form-field>
+
+            </div>
+          </form>
+        </div>
+      </div>
 
       <table class="table table-bordered  table-hover text-center">
         <thead>
@@ -34,7 +59,7 @@
         </thead>
         <tbody>
           <tr *ngFor="
-                let g of chaudiereService.ListChaudiereForGet | paginate
+                let g of chaudiereService.ListChaudiereForGet | filterFS : SearchByFilialeForm.value | paginate
                 : {
                     id: 'Pagination',
                     itemsPerPage: 5,

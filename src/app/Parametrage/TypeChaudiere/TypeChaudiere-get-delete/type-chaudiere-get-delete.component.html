@@ -20,7 +20,7 @@
         <thead>
           <tr>
             <th class="align-middle table-info table-border">Type de chaudière</th>
-            <th class="align-middle table-info table-border w-25">Actions</th>
+            <th class="align-middle table-info table-border w-25" hidden>Actions</th>
 
           </tr>
         </thead>
@@ -34,7 +34,7 @@
                   }" class="sizeText">
             <td class="align-middle table-border">{{g.libelle}}
             </td>
-            <td class="align-middle table-border">
+            <td class="align-middle table-border" hidden>
               <div class="row">
                 <div class="m-auto">
                   <button (click)="openComponentForUpdate(g)" class="btn-sm btn-info rounded "> <span

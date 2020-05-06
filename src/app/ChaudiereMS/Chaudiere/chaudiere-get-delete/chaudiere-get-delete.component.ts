@@ -11,6 +11,7 @@ import { ComposantService } from '../../../shared/ChaudiereMS/Composant/composan
 import { ChaudierePostUpdateComponent } from '../chaudiere-post-update/chaudiere-post-update.component';
 import { FilialeServiceService } from 'src/app/shared/FilialeMS/filiale-service.service';
 import { Filiale } from 'src/app/shared/FilialeMS/filiale.model';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-chaudiere-get-delete',
@@ -20,21 +21,25 @@ import { Filiale } from 'src/app/shared/FilialeMS/filiale.model';
 export class ChaudiereGetDeleteComponent implements OnInit {
 
   constructor(private chaudiereService: ChaudiereService, private composantService: ComposantService,
-    private snackBar: MatSnackBar, private modalService: BsModalService,
+    private snackBar: MatSnackBar, private modalService: BsModalService, private fb: FormBuilder,
   ) {
   }
 
   bsModalRef: BsModalRef;
 
-
   ngOnInit() {
     this.chaudiereService.getListChaudiereDto().subscribe(res => {
       this.chaudiereService.ListChaudiereForGet = res as ChaudiereForGet[];
     });
+    this.chaudiereService.getFilialeLisParam().subscribe(res => {
+      this.chaudiereService.FilialeListParam = (res as Filiale[]).filter(x => x.uniteId);
+    });
 
 
   }
-
+  SearchByFilialeForm = this.fb.group({
+    filiale: ["",],
+  });
 
   OnDelete(chaudiereId) {
     if (confirm('Vous êtes sûrs de vouloir supprimer')) {
