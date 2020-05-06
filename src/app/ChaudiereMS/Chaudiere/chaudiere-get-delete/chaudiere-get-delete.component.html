@@ -22,8 +22,6 @@
             <th class="align-middle table-info table-border ">
 
               Marque
-              <!-- <i class=" fas fa-info-circle position-fixed" data-toggle=" tooltip" data-placement="left"
-                title="Marque du corps de chauffe"></i> -->
 
             </th>
             <th class="align-middle table-info table-border ">N°</th>
@@ -46,8 +44,7 @@
             </td>
             <td class="align-middle table-border ">
               <h5>
-                <span class="badge badge-info  align-middle" data-toggle="tooltip" data-placement="left"
-                  title="Numéro de la chaudière">
+                <span class="badge badge-info  align-middle" tooltip="Numéro de la chaudière">
                   {{g.numero}}
                 </span>
               </h5>
@@ -68,8 +65,8 @@
                       class="fas fa-trash-alt  text-white"></span> </button>
                 </div>
                 <div class=" m-auto">
-                  <button (click)="sendEvent(g.chaudiereId)" class="btn-sm btn-info rounded " data-toggle="tooltip"
-                    data-placement="top" title="Consulter les composants de la chaudière"> <span>
+                  <button (click)="sendEvent(g.chaudiereId)" class="btn-sm btn-info rounded "
+                    tooltip="Consulter les composants de la chaudière" placement="right"> <span>
                       <i class="fas fa-eye"></i></span></button>
                 </div>
               </div>

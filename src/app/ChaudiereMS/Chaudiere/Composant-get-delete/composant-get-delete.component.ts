@@ -13,6 +13,8 @@ import { BacheAlimentairePostUpdateComponent } from '../Composant-post-update/Ba
 import { BruleurPostUpdateComponent } from '../Composant-post-update/Bruleur-post-update/bruleur-post-update.component';
 import { BruleurService } from 'src/app/shared/ChaudiereMS/Composant/Bruleur/bruleur.service';
 import { ComposantDto, Adoucisseur, PompeAlimentaire, BacheAlimentaire, Bruleur, CorpsDeChauffe } from 'src/app/shared/ChaudiereMS/Composant/composant.model';
+import { ChaudiereService } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.service';
+import { ChaudiereForGet } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
 
 @Component({
   selector: 'app-composant-get-delete',
@@ -23,7 +25,7 @@ export class ComposantGetDeleteComponent implements OnInit {
 
   constructor(private pompeAlimentaireService: PompeAlimentaireService, private snackBar: MatSnackBar, private modalService: BsModalService,
     private composantService: ComposantService, private corpsDeChauffeService: CorpsDeChauffeService, private adoucisseurService: AdoucisseurService,
-    private bacheAlimentaireService: BacheAlimentaireService, private bruleurService: BruleurService) { }
+    private bacheAlimentaireService: BacheAlimentaireService, private bruleurService: BruleurService, private chaudiereService: ChaudiereService) { }
 
 
   bsModalRef: BsModalRef;
@@ -47,6 +49,7 @@ export class ComposantGetDeleteComponent implements OnInit {
         res => {
 
           if (res as ComposantDto) {
+
             this.snackBar.open('La suppression est effectuée avec succées', 'X', {
               duration: 3000,
               verticalPosition: 'top',
@@ -54,6 +57,9 @@ export class ComposantGetDeleteComponent implements OnInit {
               panelClass: ['green-snackbar']
             });
             this.composantService.refreshListComposants(this.composantService.chaudiereId);
+            this.chaudiereService.getListChaudiereDto().subscribe(res => {
+              this.chaudiereService.ListChaudiereForGet = res as ChaudiereForGet[];
+            });
 
 
           }
