@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { FsVapeur } from 'src/app/shared/FicheSuivi/Fs_Vapeur/fs-vapeur.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Validators } from '@angular/forms';
-import { Chaudiere } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
+import { Chaudiere, ChaudiereForGet } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
 import { ChaudiereService } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class FsVapeurPostUpdateComponent implements OnInit {
   IndexEauChecked : boolean = true ;
   IndexElectriciteChecked : boolean = true ;
   IndexCombustibleChecked : boolean = true ;
-  ListChaudiere: Chaudiere[];
+  ListChaudiere: ChaudiereForGet[];
   constructor(public bsModalRef: BsModalRef, private fsVapeurService: FsVapeurService, private _snackBar: MatSnackBar,
     private chaudiereService : ChaudiereService) { }
 
@@ -58,7 +58,7 @@ debugger
     //#endregion
 
     this.chaudiereService.getListChaudiereDto().subscribe(res => {
-      this.ListChaudiere = res as Chaudiere[]
+      this.ListChaudiere = (res as ChaudiereForGet[]).filter(x=>x.typeChaudiere=="Vapeur")
     })
 
   }

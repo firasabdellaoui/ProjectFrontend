@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material';
 import { FsHuileThermique } from 'src/app/shared/FicheSuivi/Fs_HuileThermique/fs-huile-thermique.model';
 import { Validators } from '@angular/forms';
 import { ChaudiereService } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.service';
-import { Chaudiere } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
+import { Chaudiere, ChaudiereForGet } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
 
 @Component({
   selector: 'app-fs-huile-thermique-post-update',
@@ -15,7 +15,7 @@ import { Chaudiere } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model'
 export class FsHuileThermiquePostUpdateComponent implements OnInit {
   DifferenceChecked: boolean = false;
   IndexCombustibleChecked : boolean = true ;
-  ListChaudiere: Chaudiere[];
+  ListChaudiere: ChaudiereForGet[];
   ListUniteCombustible: any[] = [{ text: 'm3', value: 0 }, { text: 'Nm3', value: 1 }, { text: 'Kg', value: 2 }]
   constructor(public bsModalRef: BsModalRef, private fsHuileThermiqueService: FsHuileThermiqueService, private _snackBar: MatSnackBar,
     private chaudiereService : ChaudiereService) { }
@@ -36,7 +36,8 @@ export class FsHuileThermiquePostUpdateComponent implements OnInit {
   //#endregion
 
   this.chaudiereService.getListChaudiereDto().subscribe(res => {
-    this.ListChaudiere = res as Chaudiere[]
+    debugger
+    this.ListChaudiere = (res as ChaudiereForGet[]).filter(x=>x.typeChaudiere == "Huile thermique")
   })
 
   

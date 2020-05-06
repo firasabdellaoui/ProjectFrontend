@@ -18,7 +18,7 @@ export class FsEauChudePostUpdateComponent implements OnInit {
   IndexCombustibleChecked: boolean = true;
 
   ListUniteCombustible: any[] = [{ text: 'm3', value: 0 }, { text: 'Nm3', value: 1 }, { text: 'Kg', value: 2 }]
-  ListChaudiere: Chaudiere[];
+  ListChaudiere: ChaudiereForGet[];
 
   constructor(public bsModalRef: BsModalRef,
     private fsEauChaudeService: FsEauChaudeService,
@@ -41,7 +41,7 @@ export class FsEauChudePostUpdateComponent implements OnInit {
     //#endregion
 
     this.chaudiereService.getListChaudiereDto().subscribe(res => {
-      this.ListChaudiere = res as Chaudiere[]
+      this.ListChaudiere = (res as ChaudiereForGet[]).filter(x=>x.typeChaudiere=="Eau chaude")
     })
 
   }
