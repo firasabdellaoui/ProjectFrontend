@@ -25,7 +25,7 @@ export class ChaudierePostUpdateComponent implements OnInit {
       this.typeChaudiereService.ListTypeChaudiere = res as TypeChaudiere[];
     });
     this.chaudiereService.getFilialeLisParam().subscribe(res => {
-      this.chaudiereService.FilialeListParam = res as Filiale[];
+      this.chaudiereService.FilialeListParam = (res as Filiale[]).filter(x => x.uniteId);
     });
   }
 

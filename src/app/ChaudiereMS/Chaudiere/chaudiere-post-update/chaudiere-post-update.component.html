@@ -1,6 +1,6 @@
 <div class="modal-header ">
-    <h3 *ngIf=" chaudiereService.AddOrUpdateForm.controls.chaudiereId.value =='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Ajout chaudière</h3>
-    <h3 *ngIf=" chaudiereService.AddOrUpdateForm.controls.chaudiereId.value !='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Modification chaudière</h3>
+    <h3 *ngIf=" chaudiereService.AddOrUpdateForm.controls.chaudiereId.value =='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Ajout d'une chaudière</h3>
+    <h3 *ngIf=" chaudiereService.AddOrUpdateForm.controls.chaudiereId.value !='00000000-0000-0000-0000-000000000000'" class="modal-title pull-left text-info ml-3 mt-2">Modification d'une chaudière</h3>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -22,7 +22,8 @@
                                 <span class="input-group-text"><i class="fas fa-signature text-info"></i></span>
                             </div>
 
-                            <input type="number" class="form-control" formControlName="numero" placeholder="Numéro">
+                            <input type="number" class="form-control" formControlName="numero" placeholder="Numéro" [class.is-invalid]="chaudiereService.AddOrUpdateForm.controls.numero.errors?.required &&
+                            chaudiereService.AddOrUpdateForm.controls.numero.touched || chaudiereService.AddOrUpdateForm.controls.numero.errors?.min">
 
                         </div>
                     </div>
@@ -35,7 +36,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-list-alt text-info"></i></span>
                             </div>
-                            <select class="form-control " formControlName="typeChaudiereId">
+                            <select class="form-control " formControlName="typeChaudiereId" [class.is-invalid]="chaudiereService.AddOrUpdateForm.controls.typeChaudiereId.errors?.required &&
+                            chaudiereService.AddOrUpdateForm.controls.typeChaudiereId.touched">
                                 <option value="" selected>
                                 </option>
                                 <option *ngFor=" let d of typeChaudiereService.ListTypeChaudiere"
@@ -54,7 +56,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-building text-info"></i></span>
                             </div>
-                            <select class="form-control " formControlName="subsidiaryId">
+                            <select class="form-control " formControlName="subsidiaryId" [class.is-invalid]="chaudiereService.AddOrUpdateForm.controls.subsidiaryId.errors?.required &&
+                            chaudiereService.AddOrUpdateForm.controls.subsidiaryId.touched">
                                 <option value="" selected>
                                 </option>
                                 <option *ngFor=" let d of chaudiereService.FilialeListParam" [value]="d.subsidiaryId">
@@ -71,7 +74,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-th-list text-info"></i></span>
                             </div>
-                            <select class="form-control " formControlName="type">
+                            <select class="form-control " formControlName="type" [class.is-invalid]="chaudiereService.AddOrUpdateForm.controls.type.errors?.required &&
+                            chaudiereService.AddOrUpdateForm.controls.type.touched">
                                 <option value="" selected>
                                 </option>
                                 <option value="0">Principale</option>

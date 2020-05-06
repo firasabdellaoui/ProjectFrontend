@@ -4,7 +4,7 @@ import { FsRecuperationService } from 'src/app/shared/FicheSuivi/Fs_Recuperation
 import { MatSnackBar } from '@angular/material';
 import { FsRecuperation } from 'src/app/shared/FicheSuivi/Fs_Recuperation/fs-recuperation.model';
 import { Validators } from '@angular/forms';
-import { Chaudiere } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
+import { Chaudiere, ChaudiereForGet } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.model';
 import { ChaudiereService } from 'src/app/shared/ChaudiereMS/Chaudiere/chaudiere.service';
 
 
@@ -17,7 +17,7 @@ export class FsRecuperationPostUpdateComponent implements OnInit {
 
   IndexProductionChecked : boolean = true;
   IndexEauChecked : boolean = true ;
-  ListChaudiere: Chaudiere[];
+  ListChaudiere: ChaudiereForGet[];
   constructor(public bsModalRef: BsModalRef, private fsRecuperationService: FsRecuperationService, private _snackBar: MatSnackBar,
     private chaudiereService : ChaudiereService) { }
 
@@ -43,7 +43,7 @@ export class FsRecuperationPostUpdateComponent implements OnInit {
   }
   //#endregion
   this.chaudiereService.getListChaudiereDto().subscribe(res => {
-    this.ListChaudiere = res as Chaudiere[]
+    this.ListChaudiere = (res as ChaudiereForGet[]).filter(x=>x.typeChaudiere=="Récupération")
   })
 
   }
